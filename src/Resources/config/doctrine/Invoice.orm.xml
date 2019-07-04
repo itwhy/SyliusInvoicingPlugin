@@ -6,6 +6,7 @@
 
         <field name="number" column="number" />
         <field name="orderNumber" column="order_number" />
+        <field name="paymentName" column="payment_name" />
         <field name="issuedAt" column="issued_at" type="datetime" />
         <field name="currencyCode" column="currency_code" length="3" />
         <field name="localeCode" column="locale_code" />

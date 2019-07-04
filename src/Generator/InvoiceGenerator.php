@@ -69,11 +69,13 @@ final class InvoiceGenerator implements InvoiceGeneratorInterface
             $billingAddress->getCompany()
         );
     }
-    private function preparePaymentName(OrderInterface $order): string
+    private function preparePaymentName(OrderInterface $order)
     {
-      return $this->getNamesThroughCollection($order->getPayments(), function (PaymentInterface $payment) {
+      $payment = $order->getPaymentState();
+      $paymentName = $this->getNamesThroughCollection($order->getPayments(), function (PaymentInterface $payment) {
                 return $payment->getMethod()->getName();
-            });
+      });
+      return $paymentName;
     }
   
     private function getNamesThroughCollection($list, $call): string

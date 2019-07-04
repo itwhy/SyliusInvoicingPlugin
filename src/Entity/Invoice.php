@@ -31,7 +31,6 @@ class Invoice implements InvoiceInterface, ResourceInterface
     /** @var string */
     private $localeCode;
   
-    /** @var string */
     private $paymentName;
 
     /** @var int */
@@ -51,7 +50,7 @@ class Invoice implements InvoiceInterface, ResourceInterface
         BillingDataInterface $billingData,
         string $currencyCode,
         string $localeCode,
-        string $paymentName,
+        $paymentName,
         int $total,
         Collection $lineItems,
         Collection $taxItems
@@ -119,7 +118,7 @@ class Invoice implements InvoiceInterface, ResourceInterface
         return $this->localeCode;
     }
   
-    public function paymentName(): string
+    public function paymentName()
     {
         return $this->paymentName;
     }
