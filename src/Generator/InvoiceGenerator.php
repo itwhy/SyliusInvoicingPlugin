@@ -54,7 +54,7 @@ final class InvoiceGenerator implements InvoiceGeneratorInterface
             $this->preparePaymentName($order)
         );
     }
-//TEST
+
     private function prepareBillingData(AddressInterface $billingAddress): BillingDataInterface
     {
         return new BillingData(
@@ -69,12 +69,11 @@ final class InvoiceGenerator implements InvoiceGeneratorInterface
             $billingAddress->getCompany()
         );
     }
-    private function preparePaymentName(OrderInterface $order): Collection
+    private function preparePaymentName(OrderInterface $order): string
     {
-      $paymentNames = $this->getNamesThroughCollection($order->getPayments(), function (PaymentInterface $payment) {
+      return $this->getNamesThroughCollection($order->getPayments(), function (PaymentInterface $payment) {
                 return $payment->getMethod()->getName();
             });
-      return $paymentNames;
     }
   
     private function getNamesThroughCollection($list, $call): string

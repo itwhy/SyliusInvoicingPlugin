@@ -21,6 +21,8 @@ interface InvoiceInterface
     public function currencyCode(): string;
 
     public function localeCode(): string;
+    
+    public function paymentName(): string;
 
     public function total(): int;
 
