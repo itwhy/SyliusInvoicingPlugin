@@ -10,6 +10,9 @@ use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\AdjustmentInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
+use Sylius\Component\Core\Model\PaymentInterface;
+use Sylius\Component\Core\Model\PaymentMethodInterface;
+use Sylius\Component\Core\Model\PaymentMethod;
 use Sylius\InvoicingPlugin\Entity\BillingData;
 use Sylius\InvoicingPlugin\Entity\BillingDataInterface;
 use Sylius\InvoicingPlugin\Entity\Invoice;
@@ -47,7 +50,8 @@ final class InvoiceGenerator implements InvoiceGeneratorInterface
             $order->getLocaleCode(),
             $order->getTotal(),
             $this->prepareLineItems($order),
-            $this->prepareTaxItems($order)
+            $this->prepareTaxItems($order),
+            $this->preparePaymentName($order)
         );
     }
 //TEST
@@ -65,7 +69,18 @@ final class InvoiceGenerator implements InvoiceGeneratorInterface
             $billingAddress->getCompany()
         );
     }
-
+    private function preparePaymentName(OrderInterface $order): Collection
+    {
+      $paymentNames = $this->getNamesThroughCollection($order->getPayments(), function (PaymentInterface $payment) {
+                return $payment->getMethod()->getName();
+            });
+      return $paymentNames;
+    }
+  
+    private function getNamesThroughCollection($list, $call): string
+    {
+        return $list ? implode(', ', array_map($call, $list instanceof Collection ? $list->toArray() : $list)) : '';
+    }
     private function prepareLineItems(OrderInterface $order): Collection
     {
         $orderItems = $order->getItems();
