@@ -50,7 +50,7 @@ final class InvoiceGenerator implements InvoiceGeneratorInterface
             $order->getLocaleCode(),
             $order->getTotal(),
             $this->prepareLineItems($order),
-            $this->prepareTaxItems($order),
+            $this->prepareTaxItems($order)
             //$this->preparePaymentName($order)
         );
     }
