@@ -51,7 +51,7 @@ final class InvoiceGenerator implements InvoiceGeneratorInterface
             $order->getTotal(),
             $this->prepareLineItems($order),
             $this->prepareTaxItems($order),
-            $this->preparePaymentName($order)
+            //$this->preparePaymentName($order)
         );
     }
 
