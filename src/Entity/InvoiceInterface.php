@@ -22,7 +22,7 @@ interface InvoiceInterface
 
     public function localeCode(): string;
     
-    //public function paymentName();
+    public function paymentName(): string;
 
     public function total(): int;
 
